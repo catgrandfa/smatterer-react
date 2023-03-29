@@ -1,2 +1,2 @@
-# smatterer-react-
+# smatterer-react
 react scaffolding
