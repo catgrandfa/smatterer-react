@@ -1,10 +1,30 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "allowJs": true
+    "target": "es2016",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./src/typings/*.d.ts",
+      "node_modules/@types"
+    ],
+    "jsx": "react-jsx",
+    // react18这里改成react-jsx，就不需要在tsx文件中手动引入React了
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    //json
+    "resolveJsonModule": true,
+    // 开启装饰器使用
+    "experimentalDecorators": true
   },
-  "files": ["src/index.ts"]
+  "include": [
+    "./src",
+    "./src/typings/*.d.ts"
+  ]
 }
