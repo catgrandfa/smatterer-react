@@ -3,7 +3,9 @@ import {Configuration, DefinePlugin} from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import * as dotenv from "dotenv";
 import WebpackBar from 'webpackbar';
-
+//样式提取插件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const isDev = process.env.NODE_ENV === 'development' // 是否是开发模式
 const path = require("path");
 // 加载配置文件
 const envConfig = dotenv.config({
@@ -12,7 +14,8 @@ const envConfig = dotenv.config({
 
 
 const styleLoaders = [
-    'style-loader', {
+    isDev ? "style-loader" : MiniCssExtractPlugin.loader, // 开发环境使用style-looader,打包模式抽离css
+    {
         loader: "css-loader",
         options: {
             modules: {
@@ -28,7 +31,7 @@ const baseConfig: Configuration = {
     entry: path.join(__dirname, "../src/index.tsx"), // 入口文件
     // 打包出口文件
     output: {
-        filename: "static/js/[name].js", // 每个输出js的名称
+        filename: "static/js/[name].[chunkhash:8].js", // 每个输出js的名称
         path: path.join(__dirname, "../dist"), // 打包结果输出路径
         clean: true, // webpack4需要配置clean-webpack-plugin来删除dist文件,webpack5内置了
         publicPath: "/", // 打包后文件的公共前缀路径
@@ -37,7 +40,7 @@ const baseConfig: Configuration = {
     // loader 配置
     module: {
         rules: [
-            //多线程loader，需要放在最前，如果项目不大没必要使用
+            //多线程thread-loader，需要放在最前，如果项目不大没必要使用
             //exclude缩小构建目标
             {
                 test: /.(ts|tsx)$/, // 匹配.ts, tsx文件
@@ -86,7 +89,7 @@ const baseConfig: Configuration = {
                     }
                 },
                 generator: {
-                    filename: 'static/images/[hash][ext][query]', // 文件输出目录和命名
+                    filename: 'static/images/[name].[contenthash:8][ext]', // 文件输出目录和命名
                 },
             },
             {
@@ -98,7 +101,7 @@ const baseConfig: Configuration = {
                     }
                 },
                 generator: {
-                    filename: 'static/fonts/[hash][ext][query]', // 文件输出目录和命名
+                    filename: 'static/fonts/[name].[contenthash:8][ext]', // 文件输出目录和命名
                 },
             },
             {
@@ -110,7 +113,7 @@ const baseConfig: Configuration = {
                     }
                 },
                 generator: {
-                    filename: 'static/media/[hash][ext][query]', // 文件输出目录和命名
+                    filename: 'static/media/[name].[contenthash:8][ext]', // 文件输出目录和命名
                 },
             },
             {
@@ -160,7 +163,7 @@ const baseConfig: Configuration = {
         new WebpackBar({
             color: "#85d",  // 默认green，进度条颜色支持HEX
             basic: false,   // 默认true，启用一个简单的日志报告器
-            profile:false,  // 默认false，启用探查器。
+            profile: false,  // 默认false，启用探查器。
         })
     ],
     //开启持久化存储缓存

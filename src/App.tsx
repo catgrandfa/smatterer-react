@@ -1,37 +1,21 @@
-import { useState } from 'react'
-import '@/App.css'
-import lessStyles from '@/app.less'
-import scssStyles from '@/app.scss'
-import stylStyles from '@/app.styl'
+import React, { lazy, Suspense, useState } from 'react'
+const LazyDemo = lazy(() => import('@/components/LazyDemo')) // 使用import语法配合react的Lazy动态引入资源
 
 function App() {
-    const [ count, setCounts ] = useState('')
-    const onChange = (e: any) => {
-        setCounts(e.target.value)
+    const [ show, setShow ] = useState(false)
+
+    // 点击事件中动态引入css, 设置show为true
+    const handleOnClick = () => {
+        import('@/App.css')
+        setShow(true)
     }
 
-    return <div>
-        <h2>webpack5-react-ts</h2>
-        <div className={lessStyles['lessBox']}>
-            <div className={lessStyles['box']}>lessBox（天下无敌）
-                <div className={lessStyles['smallImg']}>小图片背景</div>
-                <div className={lessStyles['bigImg']}>大图片背景</div>
-            </div>
-        </div>
-        <div className={scssStyles['scssBox']}>
-            <div className={scssStyles['box']}>scssBox</div>
-        </div>
-        <div className={stylStyles['stylBox']}>
-            <div className={stylStyles['box']}>stylBox</div>
-        </div>
-        <div>
-            <p>受控组件11</p>
-            <input type="text" value={count} onChange={onChange} />
-            <br />
-            <p>非受控组件11</p>
-            <input type="text" />
-        </div>
-    </div>
+    return (
+        <>
+            <h2 onClick={handleOnClick}>展示</h2>
+            {/* show为true时加载LazyDemo组件 */}
+            { show && <Suspense fallback={null}><LazyDemo /></Suspense> }
+        </>
+    )
 }
-
 export default App

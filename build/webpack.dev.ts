@@ -20,6 +20,7 @@ const port = "8082";
 // 合并公共配置,并添加开发环境配置
 const devConfig: Configuration = merge(baseConfig, {
     mode: "development", // 开发模式,打包更加快速,省了代码优化步骤
+    //^(inline-|hidden-|eval-)?(nosources-)?(cheap-(module-)?)?source-map$
     devtool: "eval-cheap-module-source-map",
     plugins: [
         new ReactRefreshWebpackPlugin(), // 添加热更新插件
