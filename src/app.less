@@ -2,17 +2,14 @@
 @color: red;
 
 .lessBox {
-  .box {
-    color: @color;
-    background-color: lightblue;
-    transform: translateX(100);
+    .box {
+        color: @color;
+        background-color: lightblue;
+        transform: translateX(100);
 
-    &:before {
-      @arr: 'hello', 'world';
-      content: `@{arr}.join(' ').toUpperCase()`;
+        &:before {
+            @arr: 'hello', 'world';
+            content: ` @{arr}.join(' ') .toUpperCase() `;
+        }
     }
-  }
 }
-
-
-
