@@ -1,6 +1,6 @@
 {
     "name": "smatterer-react",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -17,7 +17,8 @@
         "lint:md": "npx markdownlint --config .markdownlint.js --fix .",
         "lint:eslint": "eslint --fix --ext .js,.ts,.tsx ./src --max-warnings=0",
         "pre-check": "tsc && npx lint-staged",
-        "commit": "git pull && git add -A && git-cz && git push"
+        "commit": "git pull && git add -A && git-cz && git push",
+        "release": "standard-version"
     },
     "keywords": [],
     "config": {
@@ -88,6 +89,7 @@
         "react-refresh": "^0.14.0",
         "sass-loader": "^13.2.2",
         "speed-measure-webpack-plugin": "^1.5.0",
+        "standard-version": "^9.5.0",
         "style-loader": "^3.3.2",
         "stylelint": "^15.4.0",
         "stylelint-config-css-modules": "^4.2.0",
