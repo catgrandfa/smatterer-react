@@ -9,7 +9,7 @@ module.exports = {
         'eslint:recommended',
         'plugin:import/recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended', // <==== 增加一行解决eslint和prettier冲突
+        'plugin:prettier/recommended' // <==== 增加一行解决eslint和prettier冲突
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {

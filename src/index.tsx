@@ -1,24 +1,22 @@
-import { StrictMode } from 'react'
+import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import App from './App'
-import Root from '../router/root'
-// const root = document.getElementById('root');
-
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Root />
-    }
-])
+// 导入store提供组件Provider
+import { Provider } from 'react-redux'
+// 导入store
+import { RouterProvider } from 'react-router-dom'
+import store from '@/store'
+// 路由导入
+import router from '../routes'
+import './global.less'
 
 const root = document.querySelector('#root')
 
 if (root) {
     createRoot(root).render(
         <StrictMode>
-            <RouterProvider router={router} />
-            <App />
+            <Provider store={store}>
+                <RouterProvider router={router} />
+            </Provider>
         </StrictMode>
     )
 }
